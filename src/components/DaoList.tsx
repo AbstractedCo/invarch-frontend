@@ -505,7 +505,7 @@ const DaoList = (props: DaoListProps) => {
           const projectCard = (minified: boolean) => (
             <ProjectCard
               mini={minified}
-              members={stakedDaos.find((dao) => dao.key === dao.key)?.members as AnyJson[] || []}
+              members={stakedDaos.find((d) => d.key === dao.key)?.members as AnyJson[] || []}
               dao={dao}
               totalUserStaked={userStaked}
               daoInfo={daoInfo}
