@@ -34,13 +34,19 @@ const SideNav = (props: SideNavProps) => {
     if (navOpen) navOpen(false);
   };
 
+  const handleExternalClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+    if (navOpen) navOpen(false);
+  };
+
   useEffect(() => {
     if (navOpen) navOpen(false);
 
     return () => {
       if (navOpen) navOpen(false);
     };
-  }, [navOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="side-nav min-w-[310px] flex flex-col items-center justify-between bg-black bg-opacity-70 backdrop-blur-sm h-screen border-r border-px border-r-invarchCream border-opacity-20">
@@ -55,13 +61,10 @@ const SideNav = (props: SideNavProps) => {
         <div className="flex flex-col items-center w-full text-xs lg:text-md my-10 px-0">
           {navLinks.map((link, index) => (
             link.isExternal ? (
-              <a
+              <div
                 key={index}
-                href={link.path}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="truncate text-invarchCream w-full h-16 pl-7 text-sm flex flex-col justify-center hover:underline hover:underline-offset-2 text-opacity-50 group"
-                onClick={handleClick}
+                onClick={() => handleExternalClick(link.path)}
+                className="cursor-pointer truncate text-invarchCream w-full h-16 pl-7 text-sm flex flex-col justify-center hover:underline hover:underline-offset-2 text-opacity-50"
               >
                 <div className="flex items-center">
                   <img
@@ -76,7 +79,7 @@ const SideNav = (props: SideNavProps) => {
                     className="w-3.5 h-3.5 opacity-70 ml-2"
                   />
                 </div>
-              </a>
+              </div>
             ) : (
               <NavLink
                 key={index}
